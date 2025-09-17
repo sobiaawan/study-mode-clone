@@ -1,17 +1,20 @@
 import streamlit as st
+import os
+import google.generativeai as genai
 
-# Title of the app
-st.title("ChatGPT Study Mode Clone")
+# Configure Gemini with your API key from secrets
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-# Description
-st.write("Hello! This is your Study Mode app.")
+st.title("Study Mode Clone 📚")
 
-# Ask user for a topic
-topic = st.text_input("Enter a topic to study:")
+# User input
+user_input = st.text_input("Ask me anything:")
 
-# Button to start learning
-if st.button("Start Learning"):
-    if topic:
-        st.write(f"Studying topic: {topic}")
-    else:
-        st.write("Please enter a topic first!")
+if user_input:
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(user_input)
+
+    st.write("**Answer:**")
+    st.write(response.text)
+
+
