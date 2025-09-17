@@ -15,6 +15,5 @@ if user_input:
     response = model.generate_content(user_input)
 
     st.write("**Answer:**")
-    st.write(response.text)
 
 
